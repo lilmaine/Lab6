@@ -1,10 +1,13 @@
-#include <msp430.h> 
+#include <msp430.h>
+#include "robot.h"
 
-/*
- * main.c
- */
-int main(void) {
-    WDTCTL = WDTPW | WDTHOLD;	// Stop watchdog timer
-	
-	return 0;
+
+
+int main(void)
+{
+	initiateRobot();
+	while(1){
+		moveRobot(RIGHT);
+	}
 }
+
