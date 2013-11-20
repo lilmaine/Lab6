@@ -64,16 +64,29 @@ void moveRobot(unsigned char direction) {
 		TA0CCR1 = 25;
 		__delay_cycles(333333);
 		TA0CCR1 = 60;            // set duty cycle to 25/100 (25%)
-		__delay_cycles(10000000);
 		break;
 	case LEFT:
-
+		TA1CCR1 = 25;
+		__delay_cycles(333333);
+		TA1CCR1 = 60;            // set duty cycle to 25/100 (25%)
 		break;
 	case FORWARD:
+		TA0CCR1 = 60;
+		TA1CCR1 = 60;
+		TA0CCTL1 |= OUTMOD_7;        // set TACCTL1 to Reset / Set mode
+		TA0CCTL0 |= OUTMOD_5;        // set TACCTL1 to Reset / Set mode
 
+		TA1CCTL1 |= OUTMOD_7;        // set TACCTL1 to Reset / Set mode
+		TA1CCTL0 |= OUTMOD_5;        // set TACCTL1 to Reset / Set mode
 		break;
 	case BACK:
+		TA0CCR1 = 50;
+		TA1CCR1 = 50;
+		TA0CCTL1 |= OUTMOD_5;        // set TA0CCTL1 to Reset mode
+		TA0CCTL0 |= OUTMOD_7;        // set TA0CCTL1 to Reset / Set mode
 
+		TA1CCTL1 |= OUTMOD_5;        // set TA1CCTL1 to Reset mode
+		TA1CCTL0 |= OUTMOD_7;        // set TA1CCTL1 to Reset / Set mode
 		break;
 
 	}
