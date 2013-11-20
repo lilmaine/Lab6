@@ -60,17 +60,32 @@ void moveRobot(unsigned char direction) {
 	//
 	// update player position based on direction of movement
 	//
-	case RIGHT:
+	case LARGERIGHT:
 		TA0CCR1 = 25;
-		__delay_cycles(333333);
+		__delay_cycles(500000);
 		TA0CCR1 = 60;            // set duty cycle to 25/100 (25%)
 		break;
-	case LEFT:
+
+	case SMALLRIGHT:
+		TA0CCR1 = 25;
+		__delay_cycles(200000);
+		TA0CCR1 = 60;            // set duty cycle to 25/100 (25%)
+		break;
+
+	case LARGELEFT:
 		TA1CCR1 = 25;
-		__delay_cycles(333333);
+		__delay_cycles(500000);
 		TA1CCR1 = 60;            // set duty cycle to 25/100 (25%)
 		break;
+
+	case SMALLLEFT:
+		TA1CCR1 = 25;
+		__delay_cycles(200000);
+		TA1CCR1 = 60;            // set duty cycle to 25/100 (25%)
+		break;
+
 	case FORWARD:
+
 		TA0CCR1 = 60;
 		TA1CCR1 = 60;
 		TA0CCTL1 |= OUTMOD_7;        // set TACCTL1 to Reset / Set mode
@@ -79,9 +94,12 @@ void moveRobot(unsigned char direction) {
 		TA1CCTL1 |= OUTMOD_7;        // set TACCTL1 to Reset / Set mode
 		TA1CCTL0 |= OUTMOD_5;        // set TACCTL1 to Reset / Set mode
 		break;
+
 	case BACK:
+
 		TA0CCR1 = 50;
 		TA1CCR1 = 50;
+
 		TA0CCTL1 |= OUTMOD_5;        // set TA0CCTL1 to Reset mode
 		TA0CCTL0 |= OUTMOD_7;        // set TA0CCTL1 to Reset / Set mode
 
