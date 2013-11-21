@@ -56,38 +56,68 @@ void initiateRobot() {
 }
 
 void moveRobot(unsigned char direction) {
+    TA0CCTL1 &= ~OUTMOD_7;        // set TACCTL1 to Reset / Set mode
+    TA0CCTL0 &= ~OUTMOD_7;                        //set to Reset
+    TA1CCTL1 &= ~OUTMOD_7;
+    TA1CCTL0 &= ~OUTMOD_7;
+
 	switch (direction) {
-	//
-	// update player position based on direction of movement
-	//
 	case LARGERIGHT:
-		TA0CCR1 = 25;
+		TA0CCTL1 |= OUTMOD_7;        // set TACCTL1 to Reset / Set mode
+		TA0CCTL0 |= OUTMOD_5;        // set TACCTL1 to Reset / Set mode
+
+		TA1CCTL1 |= OUTMOD_5;        // set TACCTL1 to Reset / Set mode
+		TA1CCTL0 |= OUTMOD_7;        // set TACCTL1 to Reset / Set mode
+
 		__delay_cycles(500000);
-		TA0CCR1 = 60;            // set duty cycle to 25/100 (25%)
+
+		moveRobot(FORWARD);
+
 		break;
 
 	case SMALLRIGHT:
-		TA0CCR1 = 25;
+		TA0CCTL1 |= OUTMOD_7;        // set TACCTL1 to Reset / Set mode
+		TA0CCTL0 |= OUTMOD_5;        // set TACCTL1 to Reset / Set mode
+
+		TA1CCTL1 |= OUTMOD_5;        // set TACCTL1 to Reset / Set mode
+		TA1CCTL0 |= OUTMOD_7;        // set TACCTL1 to Reset / Set mode
+
 		__delay_cycles(200000);
-		TA0CCR1 = 60;            // set duty cycle to 25/100 (25%)
+
+		moveRobot(FORWARD);
+
 		break;
 
 	case LARGELEFT:
-		TA1CCR1 = 25;
+
+		TA0CCTL1 |= OUTMOD_5;        // set TACCTL1 to Reset / Set mode
+		TA0CCTL0 |= OUTMOD_7;        // set TACCTL1 to Reset / Set mode
+
+		TA1CCTL1 |= OUTMOD_7;        // set TACCTL1 to Reset / Set mode
+		TA1CCTL0 |= OUTMOD_5;        // set TACCTL1 to Reset / Set mode
+
 		__delay_cycles(500000);
-		TA1CCR1 = 60;            // set duty cycle to 25/100 (25%)
+
+		moveRobot(FORWARD);
+
 		break;
 
 	case SMALLLEFT:
-		TA1CCR1 = 25;
+
+		TA0CCTL1 |= OUTMOD_5;        // set TACCTL1 to Reset / Set mode
+		TA0CCTL0 |= OUTMOD_7;        // set TACCTL1 to Reset / Set mode
+
+		TA1CCTL1 |= OUTMOD_7;        // set TACCTL1 to Reset / Set mode
+		TA1CCTL0 |= OUTMOD_5;        // set TACCTL1 to Reset / Set mode
+
 		__delay_cycles(200000);
-		TA1CCR1 = 60;            // set duty cycle to 25/100 (25%)
+
+		moveRobot(FORWARD);
+
 		break;
 
 	case FORWARD:
 
-		TA0CCR1 = 60;
-		TA1CCR1 = 60;
 		TA0CCTL1 |= OUTMOD_7;        // set TACCTL1 to Reset / Set mode
 		TA0CCTL0 |= OUTMOD_5;        // set TACCTL1 to Reset / Set mode
 
@@ -97,8 +127,6 @@ void moveRobot(unsigned char direction) {
 
 	case BACK:
 
-		TA0CCR1 = 50;
-		TA1CCR1 = 50;
 
 		TA0CCTL1 |= OUTMOD_5;        // set TA0CCTL1 to Reset mode
 		TA0CCTL0 |= OUTMOD_7;        // set TA0CCTL1 to Reset / Set mode
@@ -107,5 +135,14 @@ void moveRobot(unsigned char direction) {
 		TA1CCTL0 |= OUTMOD_7;        // set TA1CCTL1 to Reset / Set mode
 		break;
 
+
+	case STOP:
+
+        TA0CCTL1 |= OUTMOD_5;          // set TA0CCTL1 to Reset / Set mode
+        TA0CCTL0 |= OUTMOD_5;                   // set TA0CCTL0 to ground
+
+        TA1CCTL1 |= OUTMOD_5;          // set TA1CCTL1 to Reset / Set mode
+        TA1CCTL0 |= OUTMOD_5;
+        break;
 	}
 }
