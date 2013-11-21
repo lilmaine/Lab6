@@ -1,21 +1,25 @@
 /*
- * robot.h
- *
- *  Created on: Nov 17, 2013
- *      Author: C15Tramaine.Barnett
+ * Created: 19 Nov 13
+ * Author: C2C Tramaine Barnett. Used code from the lesson for shell.
+ * Also, used some of the code given to C2C Nicolas from Capt Branchflower
+ * Performs basic forward and backwards movement as well as small and large
+ * left and right turns
  */
 
-#ifndef ROBOT_H_
-#define ROBOT_H_
+#ifndef _robot_h
+#define _robot_h
+#include <msp430.h>
 
-#define FORWARD 1
-#define BACK 2
-#define SMALLLEFT 3
-#define LARGELEFT 4
-#define SMALLRIGHT 5
-#define LARGERIGHT 6
+#endif
 
 void initiateRobot();
-void moveRobot(unsigned char direction);
 
-#endif /* ROBOT_H_ */
+void moveForward();
+
+void moveBack();
+
+void turnLeft();
+
+void turnRight();
+
+void stop();
